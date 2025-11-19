@@ -13,14 +13,6 @@ public class MonedasManager : MonoBehaviour
         totalMonedas = transform.childCount;
     }
 
-    void Update()
-    {
-        if (monedas >= totalMonedas)
-        {
-            SceneManager.LoadScene("Victoria");
-        }
-    }
-
     public void SumarMonedas()
     {
         monedas++;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
 
     public float radioSuelo = 0.1f;
     public Transform tocaSuelo;
+    public Transform puntoReinicio;
     public LayerMask suelo;
 
     private float   movimientoX;
@@ -40,12 +42,21 @@ public class Player : MonoBehaviour
         if (alturaCaida > rb.position.y)
         {
             vidasManager.RestarVidas();
+            rb.position = puntoReinicio.position;
         }
+        if (movimientoX != 0)
+            animator.SetBool("estaCorriendo", true);
+        else
+            animator.SetBool("estaCorriendo", false);
     }
 
     private void OnMove(InputValue playerInput)
     {
-       
+        movimientoX = playerInput.Get<Vector2>().x;
+        if (movimientoX != 0)
+        {
+            transform.localScale = new Vector3(Mathf.Sign(movimientoX) * 2f, 2f, 2f);
+        }
     }
 
     private void OnJump()
@@ -63,9 +74,14 @@ public class Player : MonoBehaviour
             playerAudio.PlayOneShot(recolectarMoneda);
             Destroy(collision.gameObject);
         }
+        if (collision.gameObject.CompareTag("Castillo"))
+        {
+            SceneManager.LoadScene("Victoria");
+        }
         if (collision.gameObject.CompareTag("Enemigo"))
         {
             vidasManager.RestarVidas();
+            rb.position = puntoReinicio.position;
         }
     }
 }
