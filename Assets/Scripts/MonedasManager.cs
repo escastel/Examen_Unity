@@ -1,3 +1,4 @@
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class MonedasManager : MonoBehaviour
@@ -16,7 +17,13 @@ public class MonedasManager : MonoBehaviour
     {
         if (monedas >= totalMonedas)
         {
-            Debug.Log("¡Has recogido todas las monedas!");
+            SceneManager.LoadScene("Victoria");
         }
+    }
+
+    public void SumarMonedas()
+    {
+        monedas++;
+        textoMonedas.text = monedas.ToString();
     }
 }

@@ -1,16 +1,28 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VidasManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public TMPro.TMP_Text textoVidas;
+    private int vidas;
     void Start()
     {
-        
+        vidas = 2;
+        textoVidas.text = vidas.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (vidas <= 0)
+        {
+           UnityEngine.SceneManagement.SceneManager.LoadScene("Derrota");
+        }
+    }
+
+    public void RestarVidas()
+    {
+        vidas--;
+        textoVidas.text = vidas.ToString();
+        SceneManager.LoadScene("Nivel");
     }
 }
