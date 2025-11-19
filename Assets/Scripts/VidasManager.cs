@@ -23,6 +23,5 @@ public class VidasManager : MonoBehaviour
     {
         vidas--;
         textoVidas.text = vidas.ToString();
-        SceneManager.LoadScene("Nivel");
     }
 }
